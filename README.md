@@ -94,4 +94,4 @@ MIT License
 
 📧 Contact
 
-For feedback or questions: sathyasai1357@gmail.com 🚀
+For feedback or questions: sathyasai1357@gmail.com  🚀
