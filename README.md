@@ -51,7 +51,7 @@ The system uses **three main tables**:
 1. Clone the repo
 
    ```bash
-   git clone <repo-url>
+   git clone "https://github.com/ssathyasai/Billing_System.git"
    cd smart-billing
    ```
 
@@ -86,4 +86,4 @@ MIT License
 
 ## 📧 Contact
 
-For feedback or questions: **[your email/contact]** 🚀
+For feedback or questions: sathyasai1357@gmail.com 🚀
