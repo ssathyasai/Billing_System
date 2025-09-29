@@ -60,6 +60,8 @@ The system uses **three main tables**:
    ```bash
    python -m venv venv
    source venv/bin/activate   # Windows: venv\Scripts\activate
+   python -m pip install supabse
+   python -m pip install python-dotenv
    pip install -r requirements.txt
    ```
 
@@ -73,7 +75,7 @@ The system uses **three main tables**:
 4. Run the app
 
    ```bash
-   python run.py
+   python -m streamlit run main_app.py
    ```
 
 ---
