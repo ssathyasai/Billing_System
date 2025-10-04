@@ -1,97 +1,71 @@
-💳 Smart Billing System
+# 💼 SMART BILLING SYSTEM
 
-A Streamlit-based billing app built with Python 🐍 + Supabase ☁️.
-Manage menu, customers, and carts — and generate instant bills with auto GST (5%).
+A simple **multi-user billing system** built with **Streamlit** and **Supabase**.  
+Manage your menu, customers, orders, and generate bills with GST calculation. Each user sees only their own data.
 
-✨ Features
+---
 
-Manage Menu (add/update/delete items)
+## 🚀 Features
 
-Manage Customers
+- User registration and login (Supabase Auth)  
+- Menu and customer management  
+- Place orders with live cart  
+- Auto GST calculation on bills  
+- Business name displayed on bills  
+- User settings: update details, logout  
 
-Add items to Cart & place orders
+---
 
-Generate Printable Bills with Auto GST
+## ⚙️ Setup
 
-Cloud database powered by Supabase
+```bash
+# Clone the repo
+git clone https://github.com/yourusername/Billing_System.git
+cd Billing_System
 
-📂 Project Structure
-smart_billing_app/
-├── main_app.py                    # Main Streamlit dashboard
-├── display_menu.py                # Display menu UI
-├── menu_management.py             # Menu management UI
-├── place_order.py                 # Place order UI
-├── generate_bill.py               # Bill generation UI
-├── display_customers.py           # Customer display UI
-├── customer_management.py         # Customer management UI
-└── src/                           # Backend logic
-    ├── config/
-    │   └── supabase_config.py     # Supabase setup
-    ├── dao/                       # Database access
-    │   ├── menu_dao.py
-    │   ├── customer_dao.py
-    │   ├── cart_dao.py
-    └── service/
-        └── billing_service.py     # Billing logic
-
-
-Explanation:
-
-UI Files: Streamlit pages for user interactions
-
-src/config/: Database connection & credentials
-
-src/dao/: CRUD operations for menu, customer & cart
-
-src/service/: Business logic for billing
-
-🗄️ Database Tables (Supabase)
-
-The system uses three main tables:
-
-menu → item_id (PK), item_name, item_price
-
-customer → cust_id (PK), cust_name, mobile, date_of_shopping, total_amount
-
-cart → cart_id (PK), cust_id (FK → customer), item_id (FK → menu), quantity
-
-Relations:
-
-A customer can have many cart items
-
-Cart links customers ↔ menu items
-
-Bills (shopping date & total amount) are stored in the customer table
-
-🚀 Quick Start
-
-Clone the repo
-
-git clone "https://github.com/ssathyasai/Billing_System.git"
-cd smart_billing_app
-
-
-Setup environment
-
+# Create virtual environment
 python -m venv venv
-source venv/bin/activate   # Windows: venv\Scripts\activate
+venv\Scripts\activate  # Windows
+# source venv/bin/activate  # macOS/Linux
+
+# Install dependencies
 pip install -r requirements.txt
 
+# Run the app
+streamlit run ui/main_app.py
+```
 
-Add .env file with your Supabase keys:
+Create a `.env` file with:
 
-SUPABASE_URL=your_project_url
-SUPABASE_KEY=your_api_key
+```
+SUPABASE_URL=your_supabase_url
+SUPABASE_KEY=your_supabase_anon_key
+```
 
+---
 
-Run the app
+## 📁 Project Structure
 
-streamlit run main_app.py
+```
+billing_system/
+├── src/                  # Backend logic
+│   ├── auth.py
+│   ├── config/
+│   ├── dao/
+│   └── service/
+├── ui/                   # Streamlit pages
+├── requirements.txt
+└── README.md
+```
 
-📜 License
+---
 
-MIT License
+## 📞 Contact
 
-📧 Contact
+**Developer:** Your Name  
+📧 Email: your@email.com  
+🌐 GitHub: [github.com/yourusername](https://github.com/yourusername)
 
-For feedback or questions: sathyasai1357@gmail.com 🚀
+---
+
+✅ *Simple. Secure. Smart Billing.*
