@@ -64,7 +64,7 @@ billing_system/
 
 **Developer:** Sathyasai
 
-📧 Email: sathyasai1357@@email.com  
+📧 Email: sathyasai1357@gmail.com  
 
 
 ---
