@@ -3,12 +3,11 @@ import pandas as pd
 from src.config.supabase_config import SupabaseConfig
 from src.dao.menu_dao import MenuDAO
 
-def run():
+def run(owner_id: str):
     st.header("Menu Items")
-    config = SupabaseConfig()
-    client = config.get_client()
+    client = SupabaseConfig().get_client()
     menu_dao = MenuDAO(client)
-    items = menu_dao.get_all_items()
+    items = menu_dao.get_all_items(owner_id)
     if not items:
         st.info("No items in menu.")
         return

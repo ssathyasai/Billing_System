@@ -2,10 +2,9 @@ import streamlit as st
 from src.config.supabase_config import SupabaseConfig
 from src.dao.menu_dao import MenuDAO
 
-def run():
+def run(owner_id: str):
     st.header("Menu Management")
-    config = SupabaseConfig()
-    client = config.get_client()
+    client = SupabaseConfig().get_client()
     menu_dao = MenuDAO(client)
 
     action = st.radio("Action", ["Add Item", "Update Item", "Delete Item"])
@@ -15,13 +14,13 @@ def run():
         price = st.number_input("Item Price", min_value=0.0, format="%.2f")
         if st.button("Add Item"):
             try:
-                menu_dao.add_item(name, price)
+                menu_dao.add_item(owner_id, name, price)
                 st.success("Item added.")
             except Exception as e:
                 st.error(f"Failed to add item: {e}")
 
     elif action == "Update Item":
-        items = menu_dao.get_all_items()
+        items = menu_dao.get_all_items(owner_id)
         if not items:
             st.info("No items to update.")
             return
@@ -31,13 +30,13 @@ def run():
         new_price = st.number_input("New Price", min_value=0.0, value=float(item['item_price']), format="%.2f")
         if st.button("Update Item"):
             try:
-                menu_dao.update_item(item['item_id'], new_name, new_price)
+                menu_dao.update_item(owner_id, item['item_id'], new_name, new_price)
                 st.success("Item updated.")
             except Exception as e:
                 st.error(f"Failed to update item: {e}")
 
     elif action == "Delete Item":
-        items = menu_dao.get_all_items()
+        items = menu_dao.get_all_items(owner_id)
         if not items:
             st.info("No items to delete.")
             return
@@ -45,7 +44,7 @@ def run():
         item = items[idx]
         if st.button("Delete Item"):
             try:
-                menu_dao.delete_item(item['item_id'])
+                menu_dao.delete_item(owner_id, item['item_id'])
                 st.success("Item deleted.")
             except Exception as e:
                 st.error(f"Failed to delete item: {e}")

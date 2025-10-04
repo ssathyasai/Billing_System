@@ -1,14 +1,13 @@
 import streamlit as st
 import pandas as pd
-from src.config.supabase_config import SupabaseConfig
 from src.dao.customer_dao import CustomerDAO
+from src.config.supabase_config import SupabaseConfig
 
-def run():
+def run(owner_id: str):
     st.header("Customers")
-    config = SupabaseConfig()
-    client = config.get_client()
+    client = SupabaseConfig().get_client()
     customer_dao = CustomerDAO(client)
-    customers = customer_dao.get_all_customers()
+    customers = customer_dao.get_all_customers(owner_id)
     if not customers:
         st.info("No customers found.")
         return

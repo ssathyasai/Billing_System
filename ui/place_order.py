@@ -4,15 +4,14 @@ from src.dao.menu_dao import MenuDAO
 from src.dao.customer_dao import CustomerDAO
 from src.dao.cart_dao import CartDAO
 
-def run():
+def run(owner_id: str):
     st.header("Place Order")
-    config = SupabaseConfig()
-    client = config.get_client()
+    client = SupabaseConfig().get_client()
     menu_dao = MenuDAO(client)
     customer_dao = CustomerDAO(client)
     cart_dao = CartDAO(client)
 
-    items = menu_dao.get_all_items()
+    items = menu_dao.get_all_items(owner_id)
     if not items:
         st.info("Menu is empty.")
         return
@@ -24,7 +23,7 @@ def run():
         if qty > 0:
             order[item['item_id']] = qty
 
-    customers = customer_dao.get_all_customers()
+    customers = customer_dao.get_all_customers(owner_id)
     cust_options = [f"{c['cust_name']} (Mobile: {c.get('mobile', '')})" for c in customers]
     cust_options.append("Add New Customer")
     cust_choice = st.selectbox("Select Customer", cust_options)
@@ -44,12 +43,12 @@ def run():
                 if not new_cust_name:
                     st.error("Customer name required.")
                     return
-                cust_id = customer_dao.add_customer(new_cust_name, new_cust_mobile or "")
+                cust_id = customer_dao.add_customer(owner_id, new_cust_name, new_cust_mobile or "")
             else:
                 idx = cust_options.index(cust_choice)
                 cust_id = customers[idx]['cust_id']
             for item_id, qty in order.items():
-                cart_dao.add_to_cart(cust_id, item_id, qty)
+                cart_dao.add_to_cart(owner_id, cust_id, item_id, qty)
             st.success("Order placed.")
         except Exception as e:
             st.error(f"Error placing order: {e}")

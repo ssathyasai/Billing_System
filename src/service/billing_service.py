@@ -12,12 +12,12 @@ class BillingService:
         self.cart_dao = cart_dao
         self.customer_dao = customer_dao
 
-    def calculate_bill(self, cust_id: int) -> Dict:
-        cart_items = self.cart_dao.get_cart_items(cust_id)
+    def calculate_bill(self, owner_id: str, cust_id: int) -> Dict:
+        cart_items = self.cart_dao.get_cart_items(owner_id, cust_id)
         if not cart_items:
             raise Exception("Cart is empty for selected customer.")
 
-        menu_items = {item['item_id']: item for item in self.menu_dao.get_all_items()}
+        menu_items = {item['item_id']: item for item in self.menu_dao.get_all_items(owner_id)}
         
         items_detail = []
         subtotal = Decimal('0')
@@ -40,7 +40,7 @@ class BillingService:
         gst = (subtotal * self.GST_RATE).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
         total = (subtotal + gst).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
 
-        self.customer_dao.update_total_amount(cust_id, float(total))
+        self.customer_dao.update_total_amount(owner_id, cust_id, float(total))
 
         return {
             'items': items_detail,
@@ -49,5 +49,5 @@ class BillingService:
             'total': total
         }
 
-    def clear_customer_cart(self, cust_id: int):
-        self.cart_dao.clear_cart(cust_id)
+    def clear_customer_cart(self, owner_id: str, cust_id: int):
+        self.cart_dao.clear_cart(owner_id, cust_id)
