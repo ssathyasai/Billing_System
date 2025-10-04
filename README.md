@@ -62,9 +62,9 @@ billing_system/
 
 ## 📞 Contact
 
-**Developer:** Your Name  
-📧 Email: your@email.com  
-🌐 GitHub: [github.com/yourusername](https://github.com/yourusername)
+**Developer:** Sathyasai
+📧 Email: sathyasai1357@@email.com  
+
 
 ---
 
