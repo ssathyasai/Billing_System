@@ -1,3 +1,9 @@
+import sys
+import os
+
+# Add project root directory to Python path for module imports
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import streamlit as st
 from src.auth import Auth
 from ui import display_menu, menu_management, place_order, generate_bill, display_customers, customer_management, settings
